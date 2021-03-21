@@ -86,10 +86,12 @@ function Previewer({ file }) {
   }, [file]);
 
   return (
+    <>
     <div className={css.preview}>
       <div className={css.title}>{path.basename(file.name)}</div>
       <div className={css.content}>{value}</div>
     </div>
+    </>
   );
 }
 
@@ -99,9 +101,10 @@ Previewer.propTypes = {
 
 // Uncomment keys to register editors for media types
 const REGISTERED_EDITORS = {
-  // "text/plain": PlaintextEditor,
+  "text/plain": PlaintextEditor,
   // "text/markdown": MarkdownEditor,
 };
+
 
 function PlaintextFilesChallenge() {
   const [files, setFiles] = useState([]);
@@ -159,6 +162,7 @@ function PlaintextFilesChallenge() {
           <>
             {Editor && <Editor file={activeFile} write={write} />}
             {!Editor && <Previewer file={activeFile} />}
+
           </>
         )}
 
