@@ -70,7 +70,7 @@ function PlaintextEditor({ file, write }) {
         </textarea>
       )
     } else {
-      alert('No saved changes yet! Actually the saved changes are stored in session storage, but currently a bug is preventing from loading :(')
+      alert('No saved changes yet! Actually if there are saved changes, they are stored in session storage, but currently a bug is preventing from loading :(')
     }
   }
 
