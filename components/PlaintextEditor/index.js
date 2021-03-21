@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { listFiles } from '../../files';
 
@@ -8,6 +8,7 @@ function PlaintextEditor({ file, write }) {
   const [innerText, setInnerText] = useState('');
   const [textArea, setTextArea] = useState(<></>);
   const [textToSave, setTextToSave] = useState('');
+  const textRef = useRef(null)
   console.log(file, write);
 
   let styles = {
@@ -22,7 +23,7 @@ function PlaintextEditor({ file, write }) {
 
   // sets the state of the inner text every time it is edited
   const edit = (event) => {
-    setInnerText(event.target.value);
+    setTextToSave(event.target.value);
   }
 
   // whenever the file changes, change the default inner text of the input
@@ -42,9 +43,12 @@ function PlaintextEditor({ file, write }) {
         defaultValue={innerText}
         style={styles.inputBox}
         rows={"10"}
+        ref={textRef}
       >
       </textarea>
-  )
+
+)
+  textRef.current.value=innerText
   }, [innerText])
 
 
@@ -66,12 +70,14 @@ function PlaintextEditor({ file, write }) {
           defaultValue={loadedText}
           style={styles.inputBox}
           rows={"10"}
+          ref={textRef}
         >
         </textarea>
       )
     } else {
       alert('No saved changes yet! Actually if there are saved changes, they are stored in session storage, but currently a bug is preventing from loading :(')
     }
+    textRef.current.value=loadedText
   }
 
   return (
